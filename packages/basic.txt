@@ -1,0 +1,4 @@
+git
+fish
+starship
+kitty

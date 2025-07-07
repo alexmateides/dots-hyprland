@@ -1,0 +1,6 @@
+code
+jetbrains-toolbox
+discord
+slack
+postman
+firefox
