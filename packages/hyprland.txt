@@ -21,3 +21,4 @@ qt5ct
 qt6ct
 kvantum
 bluez-utils
+pamixer
