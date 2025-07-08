@@ -4,3 +4,4 @@ discord
 slack
 postman
 firefox
+obsidian

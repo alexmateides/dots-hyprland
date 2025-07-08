@@ -34,7 +34,7 @@
         //"format": "{icon}",
     },
     "tray": {
-        "icon-size": 13,
+        "icon-size": 20,
         "spacing": 10
     },
     "clock": {

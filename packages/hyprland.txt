@@ -22,3 +22,4 @@ qt6ct
 kvantum
 bluez-utils
 pamixer
+openrgb
