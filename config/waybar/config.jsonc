@@ -175,7 +175,7 @@
         "tooltip-format-connected": "{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}",
         "tooltip-format-enumerate-connected-battery": ":: {device_alias}: 󱊣 {device_battery_percentage}%",
-        "on-click": "~/.config/rofi/menus/bluetooth/bluetooth -theme ~/.config/rofi/menus/bluetooth/bluetooth.rasi",
+        "on-click": "~/.config/rofi/menus/bluetooth/bluetooth -theme ~/.config/rofi/menus/bluetooth/waybar.rasi",
         "on-click-right": "kitty --title '󰂯  Bluetooth TUI' bash -c bluetui",
         "interval": 1,
         "min-length": 1,
