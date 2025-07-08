@@ -1,0 +1,6 @@
+{
+    "git.enableSmartCommit": true,
+    "files.autoSave": "afterDelay",
+    "editor.fontFamily": "'JetBrains Mono Nerd Font', 'JetBrainsMono Nerd Font', 'JetBrainsMono NF', 'JetBrains Mono', monospace",
+    "editor.fontLigatures": true
+}
