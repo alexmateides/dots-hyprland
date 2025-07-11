@@ -6,9 +6,5 @@ window {
   x-offset: 0px;
   y-offset: 0px;
 
-  children: [listview];
-}
-
-listview {
-  scrollbar: false;
+  children: [message, listview];
 }

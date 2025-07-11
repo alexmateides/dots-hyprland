@@ -1,7 +1,7 @@
 code
 jetbrains-toolbox
 discord
-slack
+slack-electron
 postman
 firefox
 obsidian
