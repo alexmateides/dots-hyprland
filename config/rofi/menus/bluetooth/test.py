@@ -112,7 +112,7 @@ class DeviceConnectToggleItem(rofi_menu.SubMenuItem):
     def on_select(self, **kwargs):
         super().on_select(**kwargs)
         if self._items[0].cooldown == 0:
-            rofi_menu.run_cmd(['sh', '-c', 'sleep 0.5 && wtype -k Return'], background=True)
+            pid, _ = rofi_menu.run_cmd(['sh', '-c', 'sleep 0.5 && wtype -k Return'], background=True)
 
     def set_text(self):
         if self.status:
@@ -182,9 +182,11 @@ class DevicesMenuItem(rofi_menu.SubMenuItem):
 class BluetoothMenu(rofi_menu.Menu):
     def __init__(self, **kwargs):
         self.status = get_bluetoothctl_status()
-
+        
+        super().__init__(**kwargs)
+        
         if self.status['powered']:
-            self.items = [
+            self._items = [
                 rofi_menu.ExitItem(),
                 BluetoothToggleItem(self.status['powered']),
                 DevicesMenuItem(text="󰋋  Devices"),
@@ -193,11 +195,10 @@ class BluetoothMenu(rofi_menu.Menu):
                 rofi_menu.WaitItem(text="Lol")
             ]
         else:
-            self.items = [
+            self._items = [
                 rofi_menu.ExitItem(),
                 BluetoothToggleItem(self.status['powered']),
             ]
-        super().__init__(self.items, **kwargs)
 
 
 menu = BluetoothMenu()

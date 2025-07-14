@@ -38,7 +38,7 @@
         "spacing": 10
     },
     "clock": {
-        "format": "{:%A    %B-%d-%Y    %I:%M:%S %p}",
+        "format": "{:%A    %B-%d-%Y    %H:%M:%S}",
         "interval": 1,
         "rotate": 0,
         "tooltip-format": "<tt>{calendar}</tt>",
