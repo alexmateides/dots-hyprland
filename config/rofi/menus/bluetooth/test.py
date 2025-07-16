@@ -4,7 +4,7 @@ import subprocess
 import re
 from typing import Dict, Any, List, Tuple
 
-sys.path.append("/home/truepeak/.config/rofi/menus")
+sys.path.append("/home/truepeak/.config/rofi")
 import rofi_menu
 
 OFFSET = 18

@@ -4,7 +4,7 @@ import tomllib
 import os
 import sys
 
-sys.path.append("/home/truepeak/.config/rofi/menus")
+sys.path.append("/home/truepeak/.config/rofi")
 import rofi_menu
 
 USER_HOME = f"/home/{os.getlogin()}"
