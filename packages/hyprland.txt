@@ -25,3 +25,4 @@ pamixer
 openrgb
 hyprpolkitagent
 ttf-jetbrains-mono-nerd
+brightnessctl

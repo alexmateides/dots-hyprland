@@ -22,6 +22,7 @@ alias ls 'eza --icons'
 alias clear "printf '\033[2J\033[3J\033[1;1H'"
 alias cc 'clear'
 alias logout 'hyprctl dispatch exit'
+alias ssleep 'systemctl suspend'
     
 
 # function fish_prompt
