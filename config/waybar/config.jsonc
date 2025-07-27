@@ -25,20 +25,31 @@
         "pulseaudio#microphone"
     ],
     "hyprland/window": {
-        "format": "󰣇 {}"
+        "format": "{}",
+        "rewrite": {
+		"(.*) — Mozilla Firefox": "󰈹 $1",
+        "(.*) - Code - OSS": " $1",
+		"(.*) ~": "> [$1]",
+        "~": ">",
+        "(.*) - Slack": "󰒱 $1",
+        "(.*) - Discord": "  $1"
+        }
     },
     "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
-        "on-click": "activate"
-        //"format": "{icon}",
+        "on-click": "activate",
+        "format": "{icon}"
     },
     "tray": {
         "icon-size": 20,
-        "spacing": 10
+        "spacing": 10,
+        "icons": {
+            "discord": ""
+        }
     },
     "clock": {
-        "format": "{:%A    %B-%d-%Y    %H:%M:%S}",
+        "format": "󰥔 {:%A %d-%m-%Y  %H:%M:%S}",
         "interval": 1,
         "rotate": 0,
         "tooltip-format": "<tt>{calendar}</tt>",

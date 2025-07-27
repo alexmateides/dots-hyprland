@@ -26,7 +26,7 @@ class SSHEntry(rofi_menu.Item):
 
     def on_select(self, **kwargs):
         ssh_command = f"TERM=xterm-256color ssh {self.username}@{self.hostname} -p {self.port} -i {self.sshkey}"
-        rofi_menu.run_cmd(['kitty', '--title', f'󰢹  {self.identifier}', '--hold', 'sh', '-c', ssh_command], background=True)
+        rofi_menu.run_cmd(['kitty', '--title', self.identifier, '--hold', 'sh', '-c', ssh_command], background=True)
         return rofi_menu.SelectOutcome.EXIT
 
 
@@ -36,7 +36,6 @@ def parse_config() -> List[SSHEntry]:
     entries = config.get("ssh")
     entries = [SSHEntry(entry_config=e) for e in entries]
     return entries
-
 
 if __name__ == "__main__":
     items: List[rofi_menu.Item] = [
