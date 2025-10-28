@@ -1,4 +1,5 @@
 code
+code-marketplace
 jetbrains-toolbox
 discord
 slack-electron
