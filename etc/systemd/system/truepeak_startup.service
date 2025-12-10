@@ -1,0 +1,12 @@
+[Unit]
+Description=Run startup script
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=truepeak
+ExecStart=/home/truepeak/.config/scripts/startup.sh
+
+[Install]
+WantedBy=multi-user.target

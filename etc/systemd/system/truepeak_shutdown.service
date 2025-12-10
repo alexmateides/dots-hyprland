@@ -1,0 +1,13 @@
+[Unit]
+Description=Run shutdown / reboot script
+After=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=truepeak
+ExecStart=/bin/true
+ExecStop=/home/truepeak/.config/scripts/shutdown.sh
+
+[Install]
+WantedBy=multi-user.target

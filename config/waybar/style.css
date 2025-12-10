@@ -9,7 +9,7 @@
 
 window#waybar {
     background: rgba(21, 18, 27, 0);
-    color: #cdd6f4;
+    color: #a6adc8;
 }
 
 #workspaces button {
@@ -19,13 +19,11 @@ window#waybar {
 }
 
 #workspaces button.active {
-    color: #a6adc8;
+    color: #cdd6f4;
 }
 
-#workspaces button.focused {
-    color: #a6adc8;
-    background: #eba0ac;
-    border-radius: 10px;
+#workspaces button.visible {
+    color: #cdd6f4;
 }
 
 #workspaces button.urgent {
@@ -35,7 +33,7 @@ window#waybar {
 }
 
 #workspaces button:hover {
-    background: #454852;
+    background: #cdd6f4;
     color: #11111b; 
     border-radius: 10px;
 }
