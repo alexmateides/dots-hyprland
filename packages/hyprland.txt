@@ -3,6 +3,7 @@ hyprpaper
 hyprpicker
 hyprlock
 hypridle
+hyprland-guiutils
 xdg-desktop-portal-hyprland
 xdg-desktop-portal-gtk
 polkit-kde-agent
