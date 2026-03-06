@@ -27,3 +27,6 @@ openrgb
 hyprpolkitagent
 ttf-jetbrains-mono-nerd
 brightnessctl
+noto-fonts
+noto-fonts-emoji
+noto-fonts-cjk
