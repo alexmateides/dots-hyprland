@@ -1,0 +1,13 @@
+texlive-basic
+texlive-bibtexextra
+texlive-bin
+texlive-binextra
+texlive-fontsrecommended
+texlive-langczechslovak
+texlive-latex
+texlive-latexextra
+texlive-latexrecommended
+texlive-luatex
+texlive-mathscience
+texlive-pictures
+texlive-plaingeneric
