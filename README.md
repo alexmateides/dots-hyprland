@@ -30,4 +30,12 @@ sudo cp -r ./CyberGRUB-2077 /boot/grub/themes/CyberGRUB-2077
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
+### Useful commands
+
+#### Packages
+
+```bash
+sudo pacman -S --needed $(<packages.txt)
+```
+
 
