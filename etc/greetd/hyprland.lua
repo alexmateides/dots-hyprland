@@ -1,14 +1,18 @@
-exec-once = regreet --style /etc/greetd/config.css; hyprctl dispatch exit
-misc {
-    disable_hyprland_logo = true
-    disable_splash_rendering = true
-}
+hl.on("hyprland.start", function()
+    hl.exec_cmd("regreet --style /etc/greetd/config.css; hyprctl dispatch 'hl.dsp.exit()'")
+end)
 
-input {
-    numlock_by_default = true
-}
+hl.config({
+    misc = {
+        disable_hyprland_logo    = true,
+        disable_splash_rendering = true,
+    },
 
-debug {
-    suppress_errors = true
-}
+    input = {
+        numlock_by_default = true,
+    },
 
+    debug = {
+        suppress_errors = true,
+    },
+})

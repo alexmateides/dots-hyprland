@@ -2,7 +2,7 @@
 
 # Settings
 DISCORD_APP="discord"
-SPECIAL_WS="special:discord"
+SPECIAL_WS="discord"
 
 # Start Discord if not running
 if ! pgrep -x "$DISCORD_APP" >/dev/null; then
@@ -18,7 +18,7 @@ if [ -z "$DISCORD_WIN" ]; then
     exit 0
 fi
 
-hyprctl dispatch movetoworkspacesilent "$SPECIAL_WS",$DISCORD_WIN
+hyprctl dispatch "hl.dsp.window.move({ window = \"address:$DISCORD_WIN\", workspace = \"special:$SPECIAL_WS\", follow = false })"
 
 # Show special workspace overlayed on current workspace
-hyprctl dispatch togglespecialworkspace "$SPECIAL_WS"
+hyprctl dispatch "hl.dsp.workspace.toggle_special(\"$SPECIAL_WS\")"

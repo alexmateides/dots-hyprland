@@ -11,7 +11,7 @@ qt5-wayland
 qt6-wayland
 dunst
 rofi-wayland
-swww
+awww
 greetd
 greetd-regreet
 waybar
@@ -30,3 +30,4 @@ brightnessctl
 noto-fonts
 noto-fonts-emoji
 noto-fonts-cjk
+vicinae-bin

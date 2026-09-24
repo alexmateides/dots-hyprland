@@ -4,3 +4,4 @@ gwenview
 gnome-calculator
 partitionmanager
 dosfstools
+nautilus
