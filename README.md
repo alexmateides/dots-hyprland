@@ -20,8 +20,7 @@
 cd ~
 git clone https://github.com/adnksharp/CyberGRUB-2077
 cd CyberGRUB-2077
-sudo mkdir -p /boot/grub/themes
-sudo cp -r ./CyberGRUB-2077 /boot/grub/themes/CyberGRUB-2077
+sudo fish install.fish
 ```
 
 > Modify config
@@ -35,7 +34,7 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 #### Packages
 
 ```bash
-sudo pacman -S --needed $(<packages.txt)
+yay -S --needed $(<packages.txt)
 ```
 
 
