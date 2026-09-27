@@ -2,23 +2,28 @@
 
 # Settings
 DISCORD_APP="discord"
+DISCORD_PROC="Discord" # actual process name of the discord binary
+DISCORD_CLASS="discord"
 SPECIAL_WS="discord"
 
+discord_window_exists() {
+    hyprctl clients | grep -q "class: $DISCORD_CLASS$"
+}
+
 # Start Discord if not running
-if ! pgrep -x "$DISCORD_APP" >/dev/null; then
-    nohup $DISCORD_APP &>/dev/null &
-    # Sleep to allow Discord to actually launch (tweak as needed)
-    sleep 3
+if ! pgrep -x "$DISCORD_PROC" >/dev/null; then
+    nohup "$DISCORD_APP" &>/dev/null &
 fi
+
+# Wait for the Discord window to appear (updater can take a while)
+for _ in $(seq 1 60); do
+    discord_window_exists && break
+    sleep 0.5
+done
+discord_window_exists || exit 0
 
 # Move Discord window to special workspace
-# Requires hyprctl (installed with Hyprland)
-DISCORD_WIN=$(hyprctl clients -j | jq -r '.[] | select(.class=="discord") | .address')
-if [ -z "$DISCORD_WIN" ]; then
-    exit 0
-fi
-
-hyprctl dispatch "hl.dsp.window.move({ window = \"address:$DISCORD_WIN\", workspace = \"special:$SPECIAL_WS\", follow = false })"
+hyprctl dispatch "hl.dsp.window.move({ window = \"class:^$DISCORD_CLASS\$\", workspace = \"special:$SPECIAL_WS\", follow = false })"
 
 # Show special workspace overlayed on current workspace
 hyprctl dispatch "hl.dsp.workspace.toggle_special(\"$SPECIAL_WS\")"

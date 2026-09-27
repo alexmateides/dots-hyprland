@@ -12,6 +12,13 @@ if status is-interactive
 
 end
 
+# ssh-agent: shared agent from systemd user socket (ssh-agent.socket)
+set -gx SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
+
+# default editor
+set -gx EDITOR nano
+set -gx VISUAL nano
+
 starship init fish | source
 if test -f ~/.local/state/quickshell/user/generated/terminal/sequences.txt
     cat ~/.local/state/quickshell/user/generated/terminal/sequences.txt

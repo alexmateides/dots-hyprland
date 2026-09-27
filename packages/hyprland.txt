@@ -21,6 +21,8 @@ nwg-look
 qt5ct
 qt6ct
 kvantum
+plasma-integration
+kvantum-theme-catppuccin-git
 bluez-utils
 pamixer
 openrgb

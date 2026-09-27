@@ -29,12 +29,30 @@ sudo fish install.fish
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
+#### 4. KDE Wallet (Dolphin encrypted drives: "error 9 - read error")
+
+> Dolphin stores LUKS passphrases in KWallet; if the wallet can't be unlocked, unlocking the drive fails even with the right passphrase.
+> `etc/pam.d/greetd` + `pam_kwallet_init` in `execs.lua` unlock the wallet at login, but the wallet has to be created once by hand.
+
+```bash
+# move any existing wallet out of the way
+mkdir -p ~/kwallet-old && mv ~/.local/share/kwalletd/kdewallet.* ~/kwallet-old/
+kwalletmanager
+```
+
+> In kwalletmanager create a new wallet:
+> - name: `kdewallet`
+> - type: classic Blowfish (not GPG)
+> - password: same as the login password
+
+> Log out and back in through greetd. If the login password changes, change the wallet password too.
+
 ### Useful commands
 
 #### Packages
 
 ```bash
-yay -S --needed $(<packages.txt)
+yay -S --needed $(cat packages/*.txt)
 ```
 
 

@@ -4,4 +4,7 @@ gwenview
 gnome-calculator
 partitionmanager
 dosfstools
-nautilus
+dolphin
+kwallet-pam
+kwalletmanager
+archlinux-xdg-menu

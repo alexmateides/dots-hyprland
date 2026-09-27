@@ -1,6 +1,6 @@
 -- See https://wiki.hypr.land/Configuring/Basics/Binds/
 local terminal      = "kitty"
-local fileManager   = "nautilus"
+local fileManager   = "dolphin"
 local browser       = "firefox"
 -- local menu       = "rofi -show drun -theme ~/.config/rofi/config.rasi"
 local menu          = "vicinae toggle"

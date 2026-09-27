@@ -1,0 +1,10 @@
+@import "../../config.rasi"
+
+window {
+  location : center;
+  width    : 300px;
+  x-offset: 0px;
+  y-offset: 0px;
+
+  children: [message, listview];
+}

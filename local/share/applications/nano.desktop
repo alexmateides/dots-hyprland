@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Nano
+GenericName=Text Editor
+Comment=Edit text files in the terminal
+Exec=nano %F
+Terminal=true
+Icon=accessories-text-editor
+Categories=Utility;TextEditor;ConsoleOnly;
+MimeType=text/plain;text/x-log;text/markdown;text/x-shellscript;text/x-csrc;text/x-chdr;text/x-c++src;text/x-python;application/x-shellscript;application/json;application/xml;application/toml;application/x-yaml;
