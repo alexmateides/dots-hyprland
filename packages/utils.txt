@@ -8,3 +8,5 @@ dolphin
 kwallet-pam
 kwalletmanager
 archlinux-xdg-menu
+intel-media-driver
+libva-utils
