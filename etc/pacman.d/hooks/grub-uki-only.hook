@@ -1,0 +1,12 @@
+# grub upgrades re-enable 10_linux / 20_linux_xen (plain kernel + initramfs entries). With UKIs in /boot/EFI/Linux
+# those entries are broken duplicates of etc/grub.d/15_uki, so switch them off again (machines without UKIs untouched).
+[Trigger]
+Type = Package
+Operation = Install
+Operation = Upgrade
+Target = grub
+
+[Action]
+Description = Disabling grub's plain-kernel entries (booting UKIs via 15_uki)...
+When = PostTransaction
+Exec = /bin/sh -c 'ls /boot/EFI/Linux/*.efi >/dev/null 2>&1 && chmod -x /etc/grub.d/10_linux /etc/grub.d/20_linux_xen; true'

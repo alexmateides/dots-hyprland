@@ -1,0 +1,13 @@
+@import "../../config.rasi"
+
+/* keeps the inputbar (unlike bluetooth/center.rasi) so Wi-Fi passphrases can be typed */
+window {
+  location : center;
+  width    : 420px;
+  x-offset: 0px;
+  y-offset: 0px;
+}
+
+listview {
+  scrollbar: false;
+}

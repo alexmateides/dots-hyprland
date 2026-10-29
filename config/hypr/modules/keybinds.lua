@@ -27,7 +27,10 @@ hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("wlogout --css ~/.config/wlogout
 
 -- --- UTILS ---
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("hyprshot --mode region")) -- screenshot
-hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd(menuConfigDir .. "/bluetooth/bluetooth -theme " .. menuConfigDir .. "/bluetooth/center.rasi")) -- bluetooth
+-- bzmenu doesn't expand ~ in --launcher-command, so the theme path must be absolute
+local bzmenuTheme = os.getenv("HOME") .. "/.config/rofi/menus/bluetooth/center.rasi"
+hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("bzmenu --interactive -l custom --launcher-command 'rofi -dmenu -i -p \"{hint}\" -theme " .. bzmenuTheme .. "'")) -- bluetooth
+hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("networkmanager_dmenu")) -- network (config: ~/.config/networkmanager-dmenu/config.ini)
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("rofi -show ssh -modi ssh:" .. menuConfigDir .. "/ssh/ssh_menu.py -theme " .. menuConfigDir .. "/ssh/center.rasi"))
 
 -- Move focus with mainMod + arrow keys

@@ -19,6 +19,7 @@
         "cpu",
         "network",
         "bluetooth",
+        "power-profiles-daemon",
         "battery",
         "backlight",
         "pulseaudio",
@@ -102,6 +103,16 @@
             "󰁹"
         ]
     },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "format-icons": {
+            "default": "󰗑",
+            "performance": "󱐋",
+            "balanced": "󰗑",
+            "power-saver": "󰌪"
+        }
+    },
     "pulseaudio": {
         "format": "{icon}  {volume}%",
         "tooltip": false,
@@ -174,6 +185,9 @@
         "format-disconnected": "󰖪 ",
         "tooltip-format-disconnected": "Disconnected",
         "format-alt": "<span foreground='#99ffdd'> {bandwidthDownBytes}</span> <span foreground='#ffcc66'> {bandwidthUpBytes}</span>",
+        "format-alt-click": 2,
+        "on-click": "networkmanager_dmenu",
+        "on-click-right": "kitty --title '󰤨  Network TUI' nmtui",
         "interval": 2
     },
     "bluetooth": {

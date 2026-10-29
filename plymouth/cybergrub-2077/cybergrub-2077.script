@@ -1,0 +1,176 @@
+# CyberGRUB-2077 look for plymouth: same background / logo / label / highlight / progress images as the grub theme
+# (copied from grub/CyberGRUB-2077 by scripts/setup_plymouth.sh), positions taken from its theme.txt.
+# Coordinates are for 1920x1080 and scaled by s; all text is pre-rendered (render_text.sh).
+
+W = Window.GetWidth();
+H = Window.GetHeight();
+s = Math.Min(W / 1920, H / 1080);
+
+Window.SetBackgroundTopColor(0, 0, 0);
+Window.SetBackgroundBottomColor(0, 0, 0);
+
+fun load(file) {
+    local.img = Image(file);
+    return img.Scale(Math.Int(img.GetWidth() * s), Math.Int(img.GetHeight() * s));
+}
+
+fun place(img, x, y, z) {
+    local.sp = Sprite(img);
+    sp.SetPosition(Math.Int(x), Math.Int(y), z);
+    return sp;
+}
+
+# background, stretched to exactly the screen (a larger-than-screen sprite at a negative offset never showed up)
+bg = Sprite(Image("background.png").Scale(W, H));
+bg.SetPosition(0, 0, -10);
+
+# header: label box top left, title + [DISPLAY 1] centered, logo top right
+place(load("label.png"), 8 * s, 8 * s, 1);
+title = load("title.png");
+place(title, (W - title.GetWidth()) / 2, 8 * s, 1);
+display = load("display.png");
+place(display, (W - display.GetWidth()) / 2, 42 * s, 1);
+logo = load("logo.png");
+place(logo, W - logo.GetWidth(), 0, 1);
+
+# status list (grub: "[ >> ] SELECT OPERATING SYSTEM" ...), one sprite per row, rows() takes txt keys
+txt["select"] = load("select.png");
+txt["initramfs"] = load("initramfs.png");
+txt["decrypt"] = load("decrypt.png");
+txt["decrypted"] = load("decrypted.png");
+txt["load"] = load("load.png");
+txt["loaded"] = load("loaded.png");
+txt["desktop"] = load("desktop.png");
+txt["shutdown"] = load("shutdown.png");
+txt["reboot"] = load("reboot.png");
+for (i = 0; i < 5; i++)
+    row[i] = place(txt["select"], 8 * s, (48 + 18 * i) * s, 1);
+
+fun rows(a, b, c, d, e) {
+    list[0] = a; list[1] = b; list[2] = c; list[3] = d; list[4] = e;
+    for (i = 0; i < 5; i++) {
+        if (list[i] != "") {
+            row[i].SetImage(txt[list[i]]);
+            row[i].SetOpacity(1);
+        } else
+            row[i].SetOpacity(0);
+    }
+}
+
+mode = Plymouth.GetMode();
+if (mode == "shutdown")
+    rows("shutdown", "", "", "", "");
+else if (mode == "reboot")
+    rows("reboot", "", "", "", "");
+else
+    rows("select", "initramfs", "load", "", "");
+
+# bottom left key hints
+confirm = place(load("confirm.png"), 8 * s, H - 86 * s, 1);
+confirm.SetOpacity(0);
+place(load("log.png"), 8 * s, H - 60 * s, 1);
+
+# progress bar: full width, 30px, red frame like grub's __timeout__ bar
+bar_h = Math.Int(30 * s);
+bar_y = H - bar_h;
+px = Image("px_red.png");
+place(px.Scale(W, 1), 0, bar_y, 2);
+place(px.Scale(W, 1), 0, H - 1, 2);
+place(px.Scale(1, bar_h), 0, bar_y, 2);
+place(px.Scale(1, bar_h), W - 1, bar_y, 2);
+bar_img = Image("progress_c.png");
+bar_w = 0;
+bar = Sprite();
+bar.SetPosition(0, bar_y, 1);
+
+fun progress_cb(duration, progress) {
+    w = Math.Int(W * progress);
+    if (w > 0 && w != global.bar_w) {
+        global.bar_w = w;
+        bar.SetImage(bar_img.Scale(w, bar_h));
+    }
+}
+Plymouth.SetBootProgressFunction(progress_cb);
+
+# password dialog: grub menu highlight box as the entry field, cyan bullets inside
+field = load("highlight_c.png");
+field_x = (W - field.GetWidth()) / 2;
+field_y = H / 2 - field.GetHeight() / 2;
+dlg.field = place(field, field_x, field_y, 10);
+dlg.prompt = place(load("prompt.png"), field_x + 20 * s, field_y - 42 * s, 10);
+dlg.denied = place(load("denied.png"), field_x + 20 * s, field_y + field.GetHeight() + 16 * s, 10);
+dlg.text = Sprite();
+dlg.text.SetPosition(Math.Int(field_x + 20 * s), Math.Int(field_y - 42 * s), 10);
+bullet = load("bullet.png");
+bullet_step = bullet.GetWidth() + 4 * s;
+bullet_max = Math.Int((field.GetWidth() - 40 * s) / bullet_step);
+for (i = 0; i < bullet_max; i++) {
+    dot[i] = place(bullet, field_x + 20 * s + i * bullet_step, field_y + (field.GetHeight() - bullet.GetHeight()) / 2, 11);
+    dot[i].SetOpacity(0);
+}
+
+fun dialog(visible) {
+    dlg.field.SetOpacity(visible);
+    dlg.prompt.SetOpacity(visible);
+    confirm.SetOpacity(visible);
+    if (!visible) {
+        dlg.denied.SetOpacity(0);
+        dlg.text.SetOpacity(0);
+        for (i = 0; i < bullet_max; i++)
+            dot[i].SetOpacity(0);
+    }
+}
+dialog(0);
+
+attempts = 0;
+state = "normal";
+
+fun password_cb(prompt, bullets) {
+    if (global.state != "password") {
+        global.state = "password";
+        global.attempts = global.attempts + 1;
+        rows("select", "initramfs", "decrypt", "", "");
+        dialog(1);
+        # asked again right after an answer -> the last key was wrong
+        if (global.attempts > 1)
+            dlg.denied.SetOpacity(1);
+    }
+    for (i = 0; i < bullet_max; i++)
+        if (i < bullets)
+            dot[i].SetOpacity(1);
+        else
+            dot[i].SetOpacity(0);
+}
+Plymouth.SetDisplayPasswordFunction(password_cb);
+
+# plain questions (rare, e.g. fsck): no pre-rendered text for those, fall back to whatever font plymouth has
+fun question_cb(prompt, entry) {
+    global.state = "question";
+    dialog(1);
+    dlg.prompt.SetOpacity(0);
+    dlg.text.SetImage(Image.Text(prompt + "  " + entry, 0.455, 0.839, 0.812));
+    dlg.text.SetOpacity(1);
+}
+Plymouth.SetDisplayQuestionFunction(question_cb);
+
+fun normal_cb() {
+    if (global.state == "password")
+        rows("select", "initramfs", "decrypted", "load", "");
+    global.state = "normal";
+    dialog(0);
+}
+Plymouth.SetDisplayNormalFunction(normal_cb);
+
+# quit: plymouth-quit runs `plymouth quit --retain-splash` (etc/systemd/system/plymouth-quit.service.d), so this
+# last frame stays on screen until the greeter's hyprland takes over the display
+fun quit_cb() {
+    if (global.mode == "boot") {
+        dialog(0);
+        if (global.attempts > 0)
+            rows("select", "initramfs", "decrypted", "loaded", "desktop");
+        else
+            rows("select", "initramfs", "loaded", "desktop", "");
+        progress_cb(0, 1);
+    }
+}
+Plymouth.SetQuitFunction(quit_cb);

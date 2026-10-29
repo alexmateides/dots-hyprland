@@ -24,6 +24,9 @@ kvantum
 plasma-integration
 kvantum-theme-catppuccin-git
 bluez-utils
+bzmenu
+bluetui
+networkmanager-dmenu
 pamixer
 openrgb
 hyprpolkitagent

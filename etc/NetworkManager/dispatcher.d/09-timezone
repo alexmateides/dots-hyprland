@@ -1,0 +1,23 @@
+#!/bin/bash
+# Set the system timezone from IP geolocation whenever a connection comes up
+case "$2" in
+    up|connectivity-change) ;;
+    *) exit 0 ;;
+esac
+
+# connectivity can lag behind "up", so retry for a bit
+for _ in 1 2 3 4 5; do
+    tz=$(curl -fsS --max-time 5 'http://ip-api.com/line/?fields=timezone' 2>/dev/null) \
+        || tz=$(curl -fsS --max-time 5 https://ipapi.co/timezone 2>/dev/null)
+    [[ -n $tz ]] && break
+    sleep 3
+done
+
+tz=${tz//[$'\r\n ']/}
+[[ -n $tz && -f /usr/share/zoneinfo/$tz ]] || exit 0
+[[ $tz == "$(timedatectl show -p Timezone --value)" ]] && exit 0
+
+timedatectl set-timezone "$tz"
+logger -t auto-timezone "timezone set to $tz"
+# waybar's clock caches the zone at startup; SIGUSR2 reloads it
+pkill -USR2 -x waybar

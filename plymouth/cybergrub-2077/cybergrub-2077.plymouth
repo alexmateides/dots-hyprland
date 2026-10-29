@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=CyberGRUB-2077
+Description=Plymouth splash / LUKS prompt matching the CyberGRUB-2077 grub theme
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/cybergrub-2077
+ScriptFile=/usr/share/plymouth/themes/cybergrub-2077/cybergrub-2077.script

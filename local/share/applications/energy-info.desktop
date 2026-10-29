@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Battery History
+Comment=Battery charge and power draw over time
+Exec=kcmshell6 kcm_energyinfo
+Icon=battery
+Categories=System;

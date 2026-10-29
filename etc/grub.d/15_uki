@@ -1,0 +1,21 @@
+#! /bin/sh
+# UKIs on the ESP (/boot/EFI/Linux) as static menu entries. grub's own `uki` command builds them at boot without
+# --class, so themes (CyberGRUB-2077: icons/<class>.png) show no OS icon. Emits nothing on machines without UKIs.
+set -e
+
+. /etc/os-release
+for efi in /boot/EFI/Linux/*.efi; do
+    [ -f "$efi" ] || continue
+    file=$(basename "$efi")
+    title=$NAME
+    case $file in *fallback*) title="$NAME (fallback)" ;; esac
+    cat <<EOF
+menuentry '$title' --class ${ID:-linux} --class gnu-linux --class gnu --class os \$menuentry_id_option 'uki-${file%.efi}' {
+	insmod part_gpt
+	insmod fat
+	insmod chain
+	search --no-floppy --set=root --file /EFI/Linux/$file
+	chainloader /EFI/Linux/$file
+}
+EOF
+done
